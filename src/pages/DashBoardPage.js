@@ -5,7 +5,7 @@ import ProjectList from "../components/ProjectList";
 
 const DashBoardPage = () => {
   return (
-    <Container fluid className="pt-3">
+    <Container fluid className="">
       <Row>
         <Col md={6}>
           <ProjectList />
