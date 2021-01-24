@@ -5,7 +5,7 @@ import SignedOut from "./SignedOut";
 
 const Navibar = () => {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" className="mb-3">
       <Navbar.Brand href="#home">AlexooO</Navbar.Brand>
       <Nav className="ml-auto ">
         <SignedOut />
