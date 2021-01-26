@@ -6,7 +6,7 @@ const SignedIn = () => {
   return (
     <>
       <Nav.Item>
-        <LinkContainer to="/">
+        <LinkContainer to="/create">
           <Nav.Link>New Project</Nav.Link>
         </LinkContainer>
       </Nav.Item>

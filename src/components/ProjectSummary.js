@@ -5,7 +5,7 @@ const ProjectSummary = () => {
   return (
     <Card className="m-3">
       <Card.Body>
-        <Card.Title>Project Title</Card.Title>
+        <Card.Title className="text-dark">Project Title</Card.Title>
         <Card.Text className="text-muted">Posted by AlexooO</Card.Text>
         <Card.Text className="text-muted">24th Jan. 2021</Card.Text>
       </Card.Body>

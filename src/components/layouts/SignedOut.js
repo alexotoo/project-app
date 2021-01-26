@@ -6,12 +6,12 @@ const SignedOut = () => {
   return (
     <>
       <Nav.Item>
-        <LinkContainer to="/">
+        <LinkContainer to="/signup">
           <Nav.Link>Sign Up</Nav.Link>
         </LinkContainer>
       </Nav.Item>
       <Nav.Item>
-        <LinkContainer to="/">
+        <LinkContainer to="/signin">
           <Nav.Link>Log In</Nav.Link>
         </LinkContainer>
       </Nav.Item>

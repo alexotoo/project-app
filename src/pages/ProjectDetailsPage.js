@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Card } from "react-bootstrap";
 
-const ProjectDetails = (props) => {
+const ProjectDetailsPage = (props) => {
   const id = props.match.params.id;
 
   return (
@@ -26,4 +26,4 @@ const ProjectDetails = (props) => {
   );
 };
 
-export default ProjectDetails;
+export default ProjectDetailsPage;

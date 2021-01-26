@@ -2,9 +2,10 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Navibar from "./components/layouts/Navbar";
 import DashBoardPage from "./pages/DashBoardPage";
-import ProjectDetails from "./pages/ProjectDetails";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import ProjectDetailsPage from "./pages/ProjectDetailsPage";
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+import CreateProjectPage from "./pages/CreateProjectPage";
 
 function App() {
   return (
@@ -14,9 +15,10 @@ function App() {
 
         <Switch>
           <Route path="/" exact component={DashBoardPage} />
-          <Route path="/project/:id" component={ProjectDetails} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/project/:id" component={ProjectDetailsPage} />
+          <Route path="/signin" component={SignInPage} />
+          <Route path="/signup" component={SignUpPage} />
+          <Route path="/create" component={CreateProjectPage} />
         </Switch>
       </div>
     </BrowserRouter>

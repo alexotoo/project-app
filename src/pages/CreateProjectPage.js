@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
+
+const CreateProjectPage = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+    console.log({ title, content });
+    setTitle("");
+    setContent("");
+  };
+
+  return (
+    <Container>
+      <h5 className="text-center mb-5">Create New Project</h5>
+      <Row>
+        <Col md={12} className="center">
+          {" "}
+          <Form className="mx-5" onSubmit={submitFormHandler}>
+            <Form.Group controlId="title">
+              <Form.Label className="text-start">Title</Form.Label>
+              <Form.Control
+                type="text"
+                value={title}
+                placeholder="project title"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="content">
+              <Form.Label>Content</Form.Label>
+              <Form.Control
+                as="textarea"
+                type="text"
+                value={content}
+                placeholder="project content"
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Create
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default CreateProjectPage;
