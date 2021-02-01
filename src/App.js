@@ -8,26 +8,29 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import CreateProjectPage from "./pages/CreateProjectPage";
 import { globalState } from "./global/store";
-
+import { QueryClient, QueryClientProvider } from "react-query";
 export const GlobalStates = createContext();
 
+const queryClient = new QueryClient();
 function App() {
   return (
-    <GlobalStates.Provider value={globalState}>
-      <BrowserRouter>
-        <div className="App">
-          <Navibar />
+    <QueryClientProvider client={queryClient}>
+      <GlobalStates.Provider value={globalState}>
+        <BrowserRouter>
+          <div className="App">
+            <Navibar />
 
-          <Switch>
-            <Route path="/" exact component={DashBoardPage} />
-            <Route path="/project/:id" component={ProjectDetailsPage} />
-            <Route path="/signin" component={SignInPage} />
-            <Route path="/signup" component={SignUpPage} />
-            <Route path="/create" component={CreateProjectPage} />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </GlobalStates.Provider>
+            <Switch>
+              <Route path="/" exact component={DashBoardPage} />
+              <Route path="/project/:id" component={ProjectDetailsPage} />
+              <Route path="/signin" component={SignInPage} />
+              <Route path="/signup" component={SignUpPage} />
+              <Route path="/create" component={CreateProjectPage} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      </GlobalStates.Provider>
+    </QueryClientProvider>
   );
 }
 

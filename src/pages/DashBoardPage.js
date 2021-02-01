@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useReducer, useContext } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { GlobalStates } from "../App";
 import Notifications from "../components/Notifications";
 import ProjectList from "../components/ProjectList";
+import { ProjectReducer } from "../global/reducers/projectReducer";
+import { useQuery } from "react-query";
+import db from "../config/fbconfig";
 
 const DashBoardPage = () => {
+  const { projectStates } = useContext(GlobalStates);
+  const [projects, dispatch] = useReducer(ProjectReducer, projectStates);
+
+  const getprojects = async () => {
+    let projectsRef = db.collection("projects");
+    let allprojects = await projectsRef.get();
+    const data = allprojects.docs.map((doc) => doc.data());
+    return data;
+  };
+
+  const { data, status } = useQuery("fbdata", getprojects);
+  console.log(data, status);
+
   return (
     <Container fluid className="">
       <Row>
         <Col md={6}>
-          <ProjectList />
+          <ProjectList projects={projects} />
         </Col>
         <Col md={5}>
           <Notifications />
