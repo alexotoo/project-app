@@ -1,26 +1,30 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer, useContext, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { GlobalStates } from "../App";
 import Notifications from "../components/Notifications";
 import ProjectList from "../components/ProjectList";
 import { projectReducer } from "../global/reducers/projectReducer";
 import { useQuery } from "react-query";
-import db from "../config/fbconfig";
+
+import { getAllProjects } from "../global/actions/projectActions";
 
 const DashBoardPage = () => {
   const { projectStates } = useContext(GlobalStates);
   const [projects, dispatch] = useReducer(projectReducer, projectStates);
 
-  const getprojects = async () => {
-    let projectsRef = db.collection("projects");
-    let allprojects = await projectsRef.get();
-    const data = allprojects.docs.map((doc) => doc.data());
+  const { data, status } = useQuery("fbdata", getAllProjects);
 
-    return data;
+  const dispatchData = () => {
+    if (status === "success") {
+      dispatch({ payload: data.payload, type: data.type });
+    } else {
+      return null;
+    }
   };
 
-  const { data, status } = useQuery("fbdata", getprojects);
-  console.log(data, status);
+  useEffect(() => {
+    dispatchData();
+  }, [data]);
 
   return (
     <Container fluid className="">

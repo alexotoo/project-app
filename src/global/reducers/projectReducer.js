@@ -4,6 +4,9 @@ export const projectReducer = (state, action) => {
       console.log(action.payload);
       return state;
 
+    case "GET_ALL_PROJECTS":
+      console.log(action.payload);
+      return action.payload;
     default:
       return state;
   }
