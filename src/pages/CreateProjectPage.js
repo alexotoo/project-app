@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { projectReducer } from "../global/reducers/projectReducer";
+import { createProjectAction } from "../global/actions/projectActions";
 
 const CreateProjectPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  const [project, dispatch] = useReducer(projectReducer, {});
+
   const submitFormHandler = (e) => {
     e.preventDefault();
+    let newProject = { title, content };
     console.log({ title, content });
+    dispatch({ type: "ADD_PROJECT" }, createProjectAction(newProject));
     setTitle("");
     setContent("");
   };

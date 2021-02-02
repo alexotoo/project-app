@@ -1,3 +1,7 @@
+import { projectReducer } from "./reducers/projectReducer";
+
+const initialStates = {};
+
 const globalState = {
   authStates: {},
   projectStates: [
