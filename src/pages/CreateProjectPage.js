@@ -9,11 +9,22 @@ const CreateProjectPage = () => {
 
   const [project, dispatch] = useReducer(projectReducer, {});
 
-  const submitFormHandler = (e) => {
+  // const submitFormHandler = (e) => {
+  //   e.preventDefault();
+  //   let newProject = { title, content };
+  //   console.log({ title, content });
+  //   dispatch({ type: "ADD_PROJECT" }, createProjectAction(newProject));
+  //   setTitle("");
+  //   setContent("");
+  // };
+
+  const submitFormHandler = async (e) => {
     e.preventDefault();
     let newProject = { title, content };
     console.log({ title, content });
-    dispatch({ type: "ADD_PROJECT" }, createProjectAction(newProject));
+    let dispatchable = await createProjectAction(newProject);
+    console.log(dispatchable);
+    dispatch({ type: "ADD_PROJECT", payload: dispatchable.id });
     setTitle("");
     setContent("");
   };

@@ -15,6 +15,7 @@ export const createProjectAction = async (project) => {
     const id = docRef.id;
     console.log(`document created with id:${id}`);
     console.log(project);
+    return { id };
   } catch (error) {
     console.error("Error adding document: ", error);
   }
