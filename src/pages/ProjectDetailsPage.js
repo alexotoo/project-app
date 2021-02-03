@@ -5,6 +5,7 @@ import db from "../config/fbconfig";
 
 const ProjectDetailsPage = (props) => {
   const [project, setProject] = useState("");
+  const [date, setDate] = useState("");
   const id = props.match.params.id;
 
   const getOneProject = async (id) => {
@@ -12,12 +13,13 @@ const ProjectDetailsPage = (props) => {
     const getProject = await projectRef.get();
 
     let fbprojectRef = await getProject.data();
-    setProject(fbprojectRef);
-  };
-  // const { data, status } = useQuery("onefbdata", getOneProject(id));
-  // console.log(data, status);
 
-  console.log(project.createdAt);
+    setProject(fbprojectRef);
+
+    let t = fbprojectRef.createdAt;
+    let d = Object.values(t)[0];
+    setDate(new Date(d * 1000).toUTCString());
+  };
 
   useEffect(() => {
     getOneProject(id);
@@ -35,7 +37,7 @@ const ProjectDetailsPage = (props) => {
             posted by: {project.authorFirstName} {""}
             {project.authorLastName}
           </p>
-          <p>{}</p>
+          <p>{date}</p>
         </Card.Footer>
       </Card>
     </Container>
