@@ -14,17 +14,24 @@ const DashBoardPage = () => {
 
   const { data, status } = useQuery("fbdata", getAllProjects);
 
-  const dispatchData = () => {
-    if (status === "success") {
-      dispatch({ payload: data.payload, type: data.type });
-    } else {
-      return null;
-    }
-  };
+  // const dispatchData = () => {
+  //   if (status === "success") {
+  //     dispatch({ payload: data.payload, type: data.type });
+  //   } else {
+  //     return status.error;
+  //   }
+  // };
 
   useEffect(() => {
+    const dispatchData = () => {
+      if (status === "success") {
+        dispatch({ payload: data.payload, type: data.type });
+      } else {
+        return status.error;
+      }
+    };
     dispatchData();
-  }, [data, dispatchData]);
+  }, [data, status]);
 
   return (
     <Container fluid className="">

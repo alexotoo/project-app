@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card } from "react-bootstrap";
-import { useQuery } from "react-query";
 import db from "../config/fbconfig";
 
 const ProjectDetailsPage = (props) => {
@@ -23,7 +22,7 @@ const ProjectDetailsPage = (props) => {
 
   useEffect(() => {
     getOneProject(id);
-  }, []);
+  }, [id]);
 
   return (
     <Container className="">
