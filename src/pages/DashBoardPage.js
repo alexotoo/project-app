@@ -24,7 +24,7 @@ const DashBoardPage = () => {
 
   useEffect(() => {
     dispatchData();
-  }, [data]);
+  }, [data, dispatchData]);
 
   return (
     <Container fluid className="">
