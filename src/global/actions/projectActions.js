@@ -1,4 +1,4 @@
-import db from "../../config/fbconfig";
+import { db } from "../../config/fbconfig";
 
 export const createProjectAction = async (project) => {
   try {

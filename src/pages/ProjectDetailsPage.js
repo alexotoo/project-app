@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card } from "react-bootstrap";
-import db from "../config/fbconfig";
+import { db } from "../config/fbconfig";
 
 const ProjectDetailsPage = (props) => {
   const [project, setProject] = useState("");
