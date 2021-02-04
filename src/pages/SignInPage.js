@@ -1,15 +1,33 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { useQuery } from "react-query";
+import { userSignIn } from "../global/actions/authUserActions";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // const {
+  //   isIdle,
+  //   isLoading,
+  //   isError,
+  //   data,
+  //   error,
+  //   refetch,
+  //   isFetching,
+  //   status,
+  // } = useQuery("getuser", userSignIn(email, password), {
+  //   enabled: false,
+  // });
+
+  // //console.log(data, status);
 
   const submitFormHandler = (e) => {
     e.preventDefault();
     console.log({ email, password });
     setEmail("");
     setPassword("");
+    userSignIn(email, password);
   };
 
   return (
