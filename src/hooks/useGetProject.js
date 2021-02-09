@@ -1,17 +1,20 @@
-import { useQuery } from "react-query";
-import { db } from "../config/fbconfig";
+import React from "react";
+import { useQueryClient } from "react-query";
 
 //get single project by id from firestore
-export const getOneProject = async (id) => {
-  let projectRef = db.collection("projects").doc(id);
-  const getProject = await projectRef.get();
-  const fbprojectRef = await getProject.data();
+// export const getOneProject = async (id) => {
+//   let projectRef = db.collection("projects").doc(id);
+//   const getProject = await projectRef.get();
+//   const fbprojectRef = await getProject.data();
 
-  return fbprojectRef;
-};
+//   return fbprojectRef;
+// };
 
 const useGetProject = (projectId) => {
-  return useQuery(["allprojects", projectId], () => getOneProject(projectId));
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData();
+  const projectDetails = data.find((p) => p.id === projectId);
+  return projectDetails;
 };
 
 export default useGetProject;

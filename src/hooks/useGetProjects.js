@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "react-query";
 import { db } from "../config/fbconfig";
 
@@ -10,6 +11,7 @@ export const useGetProjects = () => {
     const data = allprojects.docs.map((doc) => {
       return { ...doc.data(), id: doc.id };
     });
+
     return data;
   };
   return useQuery("allprojects", getAllProjects);

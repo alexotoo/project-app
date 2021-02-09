@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import useGetProjects from "../hooks/useGetProjects";
 
 const ProjectList = () => {
-  const proj = useGetProjects();
-  const { data, status, isLoading } = useGetProjects();
-  console.log(data, status, proj);
+  const { data, isLoading } = useGetProjects();
+  console.log(data);
   return (
     <div>
       {isLoading ? (
