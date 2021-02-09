@@ -1,44 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container, Card } from "react-bootstrap";
-import { db } from "../config/fbconfig";
+import useGetProject from "../hooks/useGetProject";
 
 const ProjectDetailsPage = (props) => {
-  const [project, setProject] = useState("");
-  const [date, setDate] = useState("");
   const id = props.match.params.id;
 
-  const getOneProject = async (id) => {
-    let projectRef = db.collection("projects").doc(id);
-    const getProject = await projectRef.get();
+  const { data, isLoading } = useGetProject(id);
 
-    let fbprojectRef = await getProject.data();
-
-    setProject(fbprojectRef);
-
-    let t = fbprojectRef.createdAt;
+  const getPostDate = () => {
+    let t = data.createdAt;
     let d = Object.values(t)[0];
-    setDate(new Date(d * 1000).toUTCString());
+    let dateformated = new Date(d * 1000).toUTCString();
+    return dateformated;
   };
-
-  useEffect(() => {
-    getOneProject(id);
-  }, [id]);
 
   return (
     <Container className="">
-      <Card>
-        <Card.Body>
-          <Card.Title>Project Title:-{project.title}</Card.Title>
-          <Card.Text> {project.content}</Card.Text>
-        </Card.Body>
-        <Card.Footer className="text-muted">
-          <p>
-            posted by: {project.authorFirstName} {""}
-            {project.authorLastName}
-          </p>
-          <p>{date}</p>
-        </Card.Footer>
-      </Card>
+      {isLoading ? (
+        <h1>loading...</h1>
+      ) : (
+        <Card>
+          <Card.Body>
+            <Card.Title>Project Title:-{data.title}</Card.Title>
+            <Card.Text> {data.content}</Card.Text>
+          </Card.Body>
+          <Card.Footer className="text-muted">
+            <p>
+              posted by: {data.authorFirstName} {""}
+              {data.authorLastName}
+            </p>
+            <p>{getPostDate()}</p>
+          </Card.Footer>
+        </Card>
+      )}
     </Container>
   );
 };
