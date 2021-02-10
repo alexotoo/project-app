@@ -1,32 +1,32 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
-import { useQuery } from "react-query";
+
+import { auth } from "../config/fbconfig";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const {
-  //   isIdle,
-  //   isLoading,
-  //   isError,
-  //   data,
-  //   error,
-  //   refetch,
-  //   isFetching,
-  //   status,
-  // } = useQuery("getuser", userSignIn(email, password), {
-  //   enabled: false,
-  // });
+  const userSignIn = async (email, password) => {
+    try {
+      const signInUser = await auth.signInWithEmailAndPassword(email, password);
 
-  // //console.log(data, status);
+      const signedInUser = signInUser.user;
+      console.log(signedInUser);
+      return signedInUser;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    }
+  };
 
-  const submitFormHandler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    // console.log({ email, password });
-    // setEmail("");
-    // setPassword("");
-    // userSignIn(email, password);
+    userSignIn(email, password);
+
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -35,7 +35,7 @@ const SignInPage = () => {
       <Row>
         <Col className="d-flex justify-content-center">
           {" "}
-          <Form onSubmit={submitFormHandler}>
+          <Form onSubmit={submitHandler}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label className="text-start">Email address</Form.Label>
               <Form.Control
