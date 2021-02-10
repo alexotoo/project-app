@@ -1,8 +1,23 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
+import { useMutation } from "react-query";
 import { LinkContainer } from "react-router-bootstrap";
+import { auth } from "../../config/fbconfig";
 
 const SignedIn = () => {
+  const onSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        console.log("out");
+      })
+      .catch((error) => {
+        console.log("error getting out");
+      });
+  };
+  const mutation = useMutation(onSignOut);
+  console.log(mutation);
+
   return (
     <>
       <Nav.Item>
@@ -12,7 +27,7 @@ const SignedIn = () => {
       </Nav.Item>
       <Nav.Item>
         <LinkContainer to="/">
-          <Nav.Link>Log Out</Nav.Link>
+          <Nav.Link onClick={mutation.mutate}>Log Out</Nav.Link>
         </LinkContainer>
       </Nav.Item>
       <Nav.Item>
