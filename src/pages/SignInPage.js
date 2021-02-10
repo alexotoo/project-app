@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { useMutation } from "react-query";
 
 import { auth } from "../config/fbconfig";
 
@@ -7,28 +8,23 @@ const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const userSignIn = async (email, password) => {
-    try {
-      const signInUser = await auth.signInWithEmailAndPassword(email, password);
+  const mutation = useMutation(() =>
+    auth.signInWithEmailAndPassword(email, password)
+  );
 
-      const signedInUser = signInUser.user;
-      console.log(signedInUser);
-      return signedInUser;
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const userRef = await mutation.mutateAsync(email, password);
+      setEmail("");
+      setPassword("");
+
+      console.log(userRef);
+      console.log(mutation);
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      console.error(error);
     }
   };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    userSignIn(email, password);
-
-    setEmail("");
-    setPassword("");
-  };
-
   return (
     <Container>
       <h5 className="text-center mb-5">Sign In</h5>
