@@ -1,21 +1,35 @@
-import React, { useState, useReducer } from "react";
+import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
-import { projectReducer } from "../global/reducers/projectReducer";
-import { createProjectAction } from "../global/actions/projectActions";
+import { useMutation } from "react-query";
+import { db } from "../config/fbconfig";
 
 const CreateProjectPage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const [project, dispatch] = useReducer(projectReducer, {});
+  const newProject = {
+    authorFirstName: "alex",
+    authorLastName: "Snow",
+    content,
+    createdAt: new Date(),
+    title,
+  };
 
-  const submitFormHandler = async (e) => {
+  const mutation = useMutation((newProject) => {
+    return db.collection("projects").add(newProject);
+  });
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    let newProject = { title, content };
-    let dispatchable = await createProjectAction(newProject);
-    dispatch({ type: dispatchable.type, payload: dispatchable.payload });
-    setTitle("");
-    setContent("");
+    try {
+      const projectRef = await mutation.mutateAsync(newProject);
+      setTitle("");
+      setContent("");
+      console.log(projectRef);
+      console.log(projectRef.id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -24,7 +38,7 @@ const CreateProjectPage = () => {
       <Row>
         <Col md={12} className="center">
           {" "}
-          <Form className="mx-5" onSubmit={submitFormHandler}>
+          <Form className="mx-5" onSubmit={submitHandler}>
             <Form.Group controlId="title">
               <Form.Label className="text-start">Title</Form.Label>
               <Form.Control
@@ -46,7 +60,7 @@ const CreateProjectPage = () => {
               />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Create
+              {mutation.isLoading ? <h4>send...</h4> : <h4>Create</h4>}
             </Button>
           </Form>
         </Col>
