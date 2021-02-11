@@ -3,12 +3,19 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { useMutation } from "react-query";
 
 import { auth } from "../config/fbconfig";
+//import { useQueryClient } from "react-query";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const mutation = useMutation(() =>
+  // const queryClient = useQueryClient();
+  // // const mutationCache = queryClient.getMutationCache();
+
+  // const data = queryClient.getQueryData();
+  // // console.log(mutationCache);
+
+  const mutation = useMutation(async () =>
     auth.signInWithEmailAndPassword(email, password)
   );
 
@@ -19,8 +26,8 @@ const SignInPage = () => {
       setEmail("");
       setPassword("");
 
-      console.log(userRef);
       console.log(mutation);
+      console.log(userRef);
     } catch (error) {
       console.error(error);
     }

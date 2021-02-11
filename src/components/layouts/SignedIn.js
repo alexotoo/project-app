@@ -16,7 +16,6 @@ const SignedIn = () => {
       });
   };
   const mutation = useMutation(onSignOut);
-  console.log(mutation);
 
   return (
     <>
