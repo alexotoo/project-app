@@ -1,22 +1,23 @@
-import React from "react";
-import { Nav } from "react-bootstrap";
-import { useMutation } from "react-query";
+import React, { useState } from "react";
+import { Nav, Button } from "react-bootstrap";
+
 import { LinkContainer } from "react-router-bootstrap";
-import { auth } from "../../config/fbconfig";
+import { useHistory } from "react-router-dom";
+import { useAuthContext } from "../AuthContext/AuthProvider";
 
 const SignedIn = () => {
-  const onSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        console.log("out");
-      })
-      .catch((error) => {
-        console.log("error getting out");
-      });
-  };
-  const mutation = useMutation(onSignOut);
+  const history = useHistory();
+  const [error, setError] = useState("");
+  const { signOut } = useAuthContext();
 
+  const handleSingOut = async () => {
+    try {
+      await signOut();
+      history.push("/signin");
+    } catch {
+      setError("failed to log out");
+    }
+  };
   return (
     <>
       <Nav.Item>
@@ -25,9 +26,9 @@ const SignedIn = () => {
         </LinkContainer>
       </Nav.Item>
       <Nav.Item>
-        <LinkContainer to="/">
-          <Nav.Link onClick={mutation.mutate}>Log Out</Nav.Link>
-        </LinkContainer>
+        <Button variant="link" onClick={handleSingOut}>
+          Log Out
+        </Button>
       </Nav.Item>
       <Nav.Item>
         <LinkContainer to="/">

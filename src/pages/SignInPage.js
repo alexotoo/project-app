@@ -1,74 +1,73 @@
-import React, { useState } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
-import { useMutation } from "react-query";
+import React, { useState, useRef } from "react";
+import { Form, Button, Card, Alert, Container, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { useHistory } from "react-router-dom";
+import { useAuthContext } from "../components/AuthContext/AuthProvider";
 
-import { auth } from "../config/fbconfig";
-//import { useQueryClient } from "react-query";
+const SingInPage = () => {
+  const history = useHistory();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const SignInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
-  // const queryClient = useQueryClient();
-  // // const mutationCache = queryClient.getMutationCache();
+  const { signIn } = useAuthContext();
 
-  // const data = queryClient.getQueryData();
-  // // console.log(mutationCache);
-
-  const mutation = useMutation(async () =>
-    auth.signInWithEmailAndPassword(email, password)
-  );
-
-  const submitHandler = async (e) => {
+  const submitFormHandler = async (e) => {
     e.preventDefault();
-    try {
-      const userRef = await mutation.mutateAsync(email, password);
-      setEmail("");
-      setPassword("");
 
-      console.log(mutation);
-      console.log(userRef);
+    try {
+      setError("");
+      setLoading(true);
+      await signIn(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
     } catch (error) {
-      console.error(error);
+      setError("failed to sign in");
     }
+    setLoading(false);
   };
+
   return (
-    <Container>
-      <h5 className="text-center mb-5">Sign In</h5>
-      <Row>
-        <Col className="d-flex justify-content-center">
-          {" "}
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label className="text-start">Email address</Form.Label>
+    <Container className="d-flex justify-content-center align-items-center flex-column">
+      <Card className="w-100 mt-4" style={{ maxWidth: "400px" }}>
+        <Card.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <h2 className="text-center mb-2">Sign In</h2>
+          <Form onSubmit={submitFormHandler}>
+            <Form.Group id="email">
+              <Form.Label> Email</Form.Label>
               <Form.Control
                 type="email"
-                value={email}
-                placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
+                ref={emailRef}
+                required
+                placeholder="enter email"
               />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+            <Form.Group id="password">
+              <Form.Label> Password</Form.Label>
               <Form.Control
                 type="password"
-                value={password}
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                ref={passwordRef}
+                required
+                placeholder="enter password"
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+
+            <Button className="w-100" type="submit" disabled={loading}>
               Sign In
             </Button>
           </Form>
-        </Col>
-      </Row>
+        </Card.Body>
+      </Card>
+      <div className="w-100 text-center mt-2 pb-4">
+        Create an account{" "}
+        <LinkContainer to="/signup">
+          <Nav.Link>Sign Up</Nav.Link>
+        </LinkContainer>
+      </div>
     </Container>
   );
 };
 
-export default SignInPage;
+export default SingInPage;

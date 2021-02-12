@@ -7,21 +7,22 @@ import ProjectDetailsPage from "./pages/ProjectDetailsPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import CreateProjectPage from "./pages/CreateProjectPage";
+import { PrivateRoutes } from "./components/PrivateRoutes";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Navibar />
+      <Navibar />
 
-        <Switch>
-          <Route path="/" exact component={DashBoardPage} />
-          <Route path="/project/:id" component={ProjectDetailsPage} />
-          <Route path="/signin" component={SignInPage} />
-          <Route path="/signup" component={SignUpPage} />
-          <Route path="/create" component={CreateProjectPage} />
-        </Switch>
-      </div>
+      <Switch>
+        <PrivateRoutes path="/" exact privatecomp={DashBoardPage} />
+        <PrivateRoutes path="/project/:id" privatecomp={ProjectDetailsPage} />
+
+        <Route path="/signin" component={SignInPage} />
+        <Route path="/signup" component={SignUpPage} />
+
+        <PrivateRoutes path="/create" privatecomp={CreateProjectPage} />
+      </Switch>
     </BrowserRouter>
   );
 }

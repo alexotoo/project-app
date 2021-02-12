@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { AuthProvider } from "./components/AuthContext/AuthProvider";
 
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
