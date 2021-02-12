@@ -1,76 +1,104 @@
-import React, { useState } from "react";
-import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import React, { useState, useRef } from "react";
+import { Form, Button, Card, Alert, Container, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import { useHistory } from "react-router-dom";
+import { useAuthContext } from "../components/AuthContext/AuthProvider";
 
-const SingInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+const SingUpPage = () => {
+  const history = useHistory();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
 
-  const submitFormHandler = (e) => {
+  const { signUp } = useAuthContext();
+
+  const submitFormHandler = async (e) => {
     e.preventDefault();
-    console.log({ email, password, firstName, lastName });
-    setEmail("");
-    setPassword("");
-    setFirstName("");
-    setLastName("");
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("password do not match");
+    }
+    try {
+      setError("");
+      setLoading(true);
+      await signUp(emailRef.current.value, passwordRef.current.value);
+      history.push("/");
+    } catch (error) {
+      setError("acount could not be created");
+    }
+    setLoading(false);
   };
 
   return (
-    <Container>
-      <h5 className="text-center mb-5">Sign Up</h5>
-      <Row>
-        <Col className="d-flex justify-content-center">
-          {" "}
+    <Container className="d-flex justify-content-center align-items-center flex-column">
+      <Card className="w-100 mt-4" style={{ maxWidth: "400px" }}>
+        <Card.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <h2 className="text-center mb-2">Sign up</h2>
           <Form onSubmit={submitFormHandler}>
-            <Form.Group controlId="firstName">
-              <Form.Label className="text-start">First Name</Form.Label>
+            <Form.Group id="email">
+              <Form.Label> First Name</Form.Label>
               <Form.Control
                 type="text"
-                value={firstName}
-                placeholder="Enter first name"
-                onChange={(e) => setFirstName(e.target.value)}
+                ref={firstNameRef}
+                required
+                placeholder="enter first name"
               />
             </Form.Group>
-            <Form.Group controlId="lastName">
-              <Form.Label className="text-start">Last Name</Form.Label>
+            <Form.Group id="text">
+              <Form.Label> Last name</Form.Label>
               <Form.Control
                 type="text"
-                value={lastName}
-                placeholder="Enter Last Name"
-                onChange={(e) => setLastName(e.target.value)}
+                ref={lastNameRef}
+                required
+                placeholder="enter last name"
               />
             </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label className="text-start">Email address</Form.Label>
+            <Form.Group id="email">
+              <Form.Label> Email</Form.Label>
               <Form.Control
                 type="email"
-                value={email}
-                placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
+                ref={emailRef}
+                required
+                placeholder="enter email"
               />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+            <Form.Group id="password">
+              <Form.Label> Password</Form.Label>
               <Form.Control
                 type="password"
-                value={password}
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                ref={passwordRef}
+                required
+                placeholder="enter password"
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Form.Group id="password-confirm">
+              <Form.Label> Password Confirmation</Form.Label>
+              <Form.Control
+                type="password-confirm"
+                ref={passwordConfirmRef}
+                placeholder="confirm password"
+                required
+              />
+            </Form.Group>
+            <Button className="w-100" type="submit" disabled={loading}>
               Sign Up
             </Button>
           </Form>
-        </Col>
-      </Row>
+        </Card.Body>
+      </Card>
+      <div className="w-100 text-center mt-2 pb-4">
+        Have an account already?{" "}
+        <LinkContainer to="/signin">
+          <Nav.Link>Sign In</Nav.Link>
+        </LinkContainer>
+      </div>
     </Container>
   );
 };
 
-export default SingInPage;
+export default SingUpPage;
