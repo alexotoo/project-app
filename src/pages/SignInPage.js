@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Form, Button, Card, Alert, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useAuthContext } from "../components/AuthContext/AuthProvider";
 
 const SingInPage = () => {
@@ -12,7 +12,7 @@ const SingInPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const { signIn } = useAuthContext();
+  const { signIn, currentUser } = useAuthContext();
 
   const submitFormHandler = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const SingInPage = () => {
     }
     setLoading(false);
   };
-
+  if (currentUser) return <Redirect to="/" />;
   return (
     <Container className="d-flex justify-content-center align-items-center flex-column">
       <Card className="w-100 mt-4" style={{ maxWidth: "400px" }}>
