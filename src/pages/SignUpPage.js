@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Form, Button, Card, Alert, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useAuthContext } from "../components/AuthContext/AuthProvider";
 
 const SingUpPage = () => {
@@ -14,9 +14,9 @@ const SingUpPage = () => {
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
 
-  const { signUp } = useAuthContext();
+  const { signUp, currentUser } = useAuthContext();
 
-  const submitFormHandler = async (e) => {
+  const submitFormHandler = (e) => {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -25,14 +25,19 @@ const SingUpPage = () => {
     try {
       setError("");
       setLoading(true);
-      await signUp(emailRef.current.value, passwordRef.current.value);
+      signUp(
+        emailRef.current.value,
+        passwordRef.current.value,
+        firstNameRef.current.value,
+        lastNameRef.current.value
+      );
       history.push("/");
-    } catch (error) {
-      setError("acount could not be created");
+    } catch (Error) {
+      setError(Error.message);
     }
     setLoading(false);
   };
-
+  if (currentUser) return <Redirect to="/" />;
   return (
     <Container className="d-flex justify-content-center align-items-center flex-column">
       <Card className="w-100 mt-4" style={{ maxWidth: "400px" }}>

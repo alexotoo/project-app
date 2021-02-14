@@ -10,10 +10,47 @@ export function useAuthContext() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [firstN, setFirstN] = useState("");
+  const [lastN, setLastN] = useState("");
+  const [profileUpdate, setProfileUpdate] = useState(false);
 
-  const signUp = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password);
+  //sign up new user
+  const signUp = async (email, password, first, last) => {
+    setFirstN(first);
+    setLastN(last);
+
+    const createUserProfileNames = (first, last) => {
+      const fiestInitials = first[0];
+      const lastInitials = last[0];
+      const userInitials = fiestInitials.concat(lastInitials);
+      const iniToUpperCase = userInitials.toUpperCase();
+      const userProfileName = `${iniToUpperCase},${first},${last}`;
+      return userProfileName;
+    };
+
+    const currentUserNames = createUserProfileNames(first, last);
+    console.log(currentUserNames);
+
+    const currentUserIn = await auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+
+    if (currentUserIn) {
+      const userIn = currentUserIn.user;
+      try {
+        const updateProfileDisplay = await userIn.updateProfile({
+          displayName: currentUserNames,
+        });
+        console.log("update done");
+        setProfileUpdate(true);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
+
+  //sign in exiting user
   const signIn = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
@@ -27,13 +64,15 @@ export function AuthProvider({ children }) {
     });
 
     return unsubscribe;
-  }, []);
+  }, [profileUpdate]);
 
   const value = {
     currentUser,
     signUp,
     signIn,
     signOut,
+    firstN,
+    lastN,
   };
 
   return (
