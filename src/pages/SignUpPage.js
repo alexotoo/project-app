@@ -27,8 +27,8 @@ const SingUpPage = () => {
       setLoading(true);
       await signUp(emailRef.current.value, passwordRef.current.value);
       history.push("/");
-    } catch (error) {
-      setError("acount could not be created");
+    } catch (Error) {
+      setError(Error.message);
     }
     setLoading(false);
   };
