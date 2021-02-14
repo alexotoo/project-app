@@ -7,9 +7,10 @@ import SignedIn from "./SignedIn";
 import SignedOut from "./SignedOut";
 
 const Navibar = () => {
-  const { currentUser, firstN, lastN } = useAuthContext();
+  const { currentUser, firstN, lastN, initials } = useAuthContext();
 
   const [isSignedIn, setIsSignedIn] = useState(false);
+
   useEffect(() => {
     if (currentUser) {
       setIsSignedIn(true);
@@ -17,9 +18,9 @@ const Navibar = () => {
       setIsSignedIn(false);
     }
   }, [currentUser]);
-
-  console.log(firstN, lastN);
   console.log(currentUser);
+  console.log(firstN, lastN, initials);
+
   return (
     <Navbar bg="dark" variant="dark" className="mb-3">
       <LinkContainer to="/">

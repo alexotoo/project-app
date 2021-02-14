@@ -12,13 +12,15 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [firstN, setFirstN] = useState("");
   const [lastN, setLastN] = useState("");
+  const [initials, setInitials] = useState("");
   const [profileUpdate, setProfileUpdate] = useState(false);
 
-  //sign up new user
+  ////sign up new user
   const signUp = async (email, password, first, last) => {
-    setFirstN(first);
-    setLastN(last);
+    // setFirstN(first);
+    // setLastN(last);
 
+    //formate user name for firestore user displayName
     const createUserProfileNames = (first, last) => {
       const fiestInitials = first[0];
       const lastInitials = last[0];
@@ -28,14 +30,15 @@ export function AuthProvider({ children }) {
       return userProfileName;
     };
 
+    //get user name to create firestore displayName
     const currentUserNames = createUserProfileNames(first, last);
-    console.log(currentUserNames);
 
+    //create a new user
     const currentUserIn = await auth.createUserWithEmailAndPassword(
       email,
       password
     );
-
+    //update the created user's displayName
     if (currentUserIn) {
       const userIn = currentUserIn.user;
       try {
@@ -50,17 +53,31 @@ export function AuthProvider({ children }) {
     }
   };
 
-  //sign in exiting user
+  ////sign in exiting user
   const signIn = (email, password) => {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
+  ////sign user out
   const signOut = () => auth.signOut();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
+      if (!user) {
+        return;
+      } else {
+        const userdisplayName = user.displayName;
+        if (userdisplayName === null) {
+          return;
+        }
+        const names = userdisplayName.split(",");
+        setFirstN(names[1]);
+        setLastN(names[2]);
+        setInitials(names[0]);
+        console.log(names, initials, firstN, lastN);
+      }
     });
 
     return unsubscribe;
@@ -73,6 +90,7 @@ export function AuthProvider({ children }) {
     signOut,
     firstN,
     lastN,
+    initials,
   };
 
   return (

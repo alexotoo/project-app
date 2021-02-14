@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Nav, Button } from "react-bootstrap";
 
 import { LinkContainer } from "react-router-bootstrap";
@@ -6,9 +6,17 @@ import { useHistory } from "react-router-dom";
 import { useAuthContext } from "../AuthContext/AuthProvider";
 
 const SignedIn = () => {
+  const { signOut, initials } = useAuthContext();
   const history = useHistory();
   const [error, setError] = useState("");
-  const { signOut } = useAuthContext();
+  const [nameInitials, setNameInitials] = useState("");
+
+  useEffect(() => {
+    if (!initials) {
+      return;
+    }
+    setNameInitials(initials);
+  }, [nameInitials]);
 
   const handleSingOut = async () => {
     try {
@@ -33,7 +41,7 @@ const SignedIn = () => {
       <Nav.Item>
         <LinkContainer to="/">
           <Nav.Link className="badge  rounded-circle bg-primary py-2 mt-2 mx-3 ">
-            AO
+            {initials}
           </Nav.Link>
         </LinkContainer>
       </Nav.Item>
