@@ -76,7 +76,6 @@ export function AuthProvider({ children }) {
         setFirstN(names[1]);
         setLastN(names[2]);
         setInitials(names[0]);
-        console.log(names, initials, firstN, lastN);
       }
     });
 
