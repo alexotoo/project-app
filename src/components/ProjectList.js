@@ -13,7 +13,11 @@ const ProjectList = () => {
       ) : (
         data.map((project) => {
           return (
-            <Link to={`/Project/${project.id}`} key={project.id}>
+            <Link
+              style={{ textDecoration: "none" }}
+              to={`/Project/${project.id}`}
+              key={project.id}
+            >
               <ProjectSummary project={project} />
             </Link>
           );

@@ -9,7 +9,7 @@ import SignInPage from "./pages/SignInPage";
 import CreateProjectPage from "./pages/CreateProjectPage";
 import { PrivateRoutes } from "./components/PrivateRoutes";
 import NotFoundPage from "./pages/NotFoundPage";
-
+import "../src/App.css";
 function App() {
   return (
     <BrowserRouter>

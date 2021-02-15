@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
+import { useAuthContext } from "../components/AuthContext/AuthProvider";
 import { db } from "../config/fbconfig";
 
 const CreateProjectPage = () => {
+  const history = useHistory();
+  const { firstN, lastN } = useAuthContext();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const newProject = {
-    authorFirstName: "alex",
-    authorLastName: "Snow",
+    authorFirstName: firstN,
+    authorLastName: lastN,
     content,
     createdAt: new Date(),
     title,
@@ -25,8 +29,7 @@ const CreateProjectPage = () => {
       const projectRef = await mutation.mutateAsync(newProject);
       setTitle("");
       setContent("");
-      console.log(projectRef);
-      console.log(projectRef.id);
+      history.push("/");
     } catch (error) {
       console.error(error);
     }

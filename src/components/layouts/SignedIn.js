@@ -34,7 +34,11 @@ const SignedIn = () => {
         </LinkContainer>
       </Nav.Item>
       <Nav.Item>
-        <Button variant="link" onClick={handleSingOut}>
+        <Button
+          style={{ textDecoration: "none" }}
+          variant="link"
+          onClick={handleSingOut}
+        >
           Log Out
         </Button>
       </Nav.Item>

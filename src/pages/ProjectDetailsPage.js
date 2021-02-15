@@ -1,13 +1,13 @@
 import React from "react";
 import { Container, Card } from "react-bootstrap";
 import useGetProject from "../hooks/useGetProject";
-import formateDate from "../utils/formateDate";
+import moment from "moment";
 
 const ProjectDetailsPage = (props) => {
   const id = props.match.params.id;
 
   const data = useGetProject(id);
-  let time = data.createdAt;
+  const date = moment(data.createdAt.toDate()).calendar();
 
   return (
     <Container className="">
@@ -21,7 +21,7 @@ const ProjectDetailsPage = (props) => {
             posted by: {data.authorFirstName} {""}
             {data.authorLastName}
           </p>
-          <p>{formateDate(time)}</p>
+          <p>{date}</p>
         </Card.Footer>
       </Card>
     </Container>

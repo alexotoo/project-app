@@ -7,7 +7,7 @@ const DashBoardPage = () => {
   return (
     <Container fluid className="">
       <Row>
-        <Col md={6}>
+        <Col md={7}>
           <ProjectList />
         </Col>
         <Col md={5}>
