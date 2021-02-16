@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, Card, Alert, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Redirect, useHistory } from "react-router-dom";
@@ -23,10 +23,16 @@ const SingInPage = () => {
       await signIn(emailRef.current.value, passwordRef.current.value);
       history.push("/");
     } catch (error) {
-      setError("failed to sign in");
+      setError(error.message);
     }
     setLoading(false);
   };
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    };
+  }, [loading]);
+
   if (currentUser) return <Redirect to="/" />;
   return (
     <Container className="d-flex justify-content-center align-items-center flex-column">

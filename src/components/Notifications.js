@@ -6,9 +6,7 @@ const Notifications = () => {
     <section className="mt-3">
       <Card>
         <Card.Body>
-          <Card.Text className="text-center">
-            <h5>Notifications</h5>
-          </Card.Text>
+          <Card.Title className="text-center">Notifications</Card.Title>
           <ul>
             <li>Notification</li>
             <li>Notification</li>
