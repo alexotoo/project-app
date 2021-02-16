@@ -12,6 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.t-color {
+  color: #753a88;
+}
 .auth-x {
   max-width: 400px !important;
 }

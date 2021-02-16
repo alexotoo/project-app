@@ -45,10 +45,10 @@ export function AuthProvider({ children }) {
         const updateProfileDisplay = await userIn.updateProfile({
           displayName: currentUserNames,
         });
-        console.log("update done");
+        //console.log("update done");
         setProfileUpdate(true);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     }
   };

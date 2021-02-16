@@ -8,11 +8,11 @@ const ProjectSummary = ({ project }) => {
   return (
     <Card className="mb-2 mt-3">
       <Card.Body>
-        <Card.Title className="text-dark">{project.title}</Card.Title>
+        <Card.Title className="t-color">{project.title}</Card.Title>
         <Card.Text className="text-muted">
-          Posted by: {project.authorFirstName}
+          Posted by: {project.authorFirstName} <br />
+          {date}
         </Card.Text>
-        <Card.Text className="text-muted">{date}</Card.Text>
       </Card.Body>
     </Card>
   );

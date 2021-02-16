@@ -1,17 +1,12 @@
 import React from "react";
 import ProjectSummary from "./ProjectSummary";
 import { Link } from "react-router-dom";
-import useGetProjects from "../hooks/useGetProjects";
 
-const ProjectList = () => {
-  const { data, isLoading } = useGetProjects();
-  console.log(data);
+const ProjectList = ({ projects }) => {
   return (
     <div>
-      {isLoading ? (
-        <h1>Loading...</h1>
-      ) : (
-        data.map((project) => {
+      {projects &&
+        projects.map((project) => {
           return (
             <Link
               style={{ textDecoration: "none" }}
@@ -21,8 +16,7 @@ const ProjectList = () => {
               <ProjectSummary project={project} />
             </Link>
           );
-        })
-      )}
+        })}
     </div>
   );
 };

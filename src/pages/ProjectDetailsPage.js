@@ -10,10 +10,12 @@ const ProjectDetailsPage = (props) => {
   const date = moment(data.createdAt.toDate()).calendar();
 
   return (
-    <Container className="">
+    <Container>
       <Card>
         <Card.Body>
-          <Card.Title>Project Title:-{data.title}</Card.Title>
+          <Card.Title className="t-color">
+            Project Title:-{data.title}
+          </Card.Title>
           <Card.Text> {data.content}</Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted">

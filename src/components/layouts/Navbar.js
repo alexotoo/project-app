@@ -7,7 +7,7 @@ import SignedIn from "./SignedIn";
 import SignedOut from "./SignedOut";
 
 const Navibar = () => {
-  const { currentUser, firstN, lastN, initials } = useAuthContext();
+  const { currentUser } = useAuthContext();
 
   const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -18,8 +18,6 @@ const Navibar = () => {
       setIsSignedIn(false);
     }
   }, [currentUser]);
-  console.log(currentUser);
-  console.log(firstN, lastN, initials);
 
   return (
     <Navbar bg="dark" variant="dark" className="mb-3">
@@ -28,7 +26,7 @@ const Navibar = () => {
       </LinkContainer>
 
       <Nav className="ml-auto ">
-        {(isSignedIn && <SignedIn />) || <SignedOut />}
+        {isSignedIn ? <SignedIn /> : <SignedOut />}
       </Nav>
     </Navbar>
   );

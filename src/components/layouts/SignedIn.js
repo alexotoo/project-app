@@ -16,7 +16,7 @@ const SignedIn = () => {
       return;
     }
     setNameInitials(initials);
-  }, [nameInitials]);
+  }, [nameInitials, initials]);
 
   const handleSingOut = async () => {
     try {

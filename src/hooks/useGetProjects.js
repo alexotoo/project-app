@@ -5,7 +5,7 @@ import { db } from "../config/fbconfig";
 export const useGetProjects = () => {
   //get all projects from firestore
   const getAllProjects = async () => {
-    let projectsRef = db.collection("projects");
+    let projectsRef = db.collection("projects").orderBy("createdAt", "desc");
     let allprojects = await projectsRef.get();
 
     const data = allprojects.docs.map((doc) => {
