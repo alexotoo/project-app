@@ -16,4 +16,4 @@ Have a look at the project inspiration [React-Redux-Firebase-App](https://github
 
 ### Stack:
 
-1.React Js 2. Firebase/firestore/functions/deploy 3. React Query
+1.React Js 2. Firebase/firestore/functions/ 3. React Query 4. Netlify hosting 5. React-Bootstrap
