@@ -19,7 +19,7 @@ const PagePagination = ({
       <Pagination.Item
         key={pages}
         onClick={() => paginator(pages)}
-        active={pageslint === active}
+        active={pages === active}
       >
         {pages}
       </Pagination.Item>
