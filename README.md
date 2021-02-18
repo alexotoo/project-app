@@ -1,3 +1,8 @@
+**Project started on 24-01-21**
+**Project deployed on 18-02-21**
+
+### project description:
+
 This App is a Team Project App, where members can login to create projects, it uses firebase for back
 -end and authentication
 
