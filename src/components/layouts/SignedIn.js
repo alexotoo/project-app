@@ -8,7 +8,7 @@ import { useAuthContext } from "../AuthContext/AuthProvider";
 const SignedIn = () => {
   const { signOut, initials } = useAuthContext();
   const history = useHistory();
-  const [error, setError] = useState("");
+  const [setError] = useState("");
   const [nameInitials, setNameInitials] = useState("");
 
   useEffect(() => {

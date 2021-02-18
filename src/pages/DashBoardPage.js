@@ -3,25 +3,21 @@ import { Col, Container, Row } from "react-bootstrap";
 import Notifications from "../components/Notifications";
 import PagePagination from "../components/PagePagination";
 import ProjectList from "../components/ProjectList";
-import useGetProject from "../hooks/useGetProject";
 import useGetProjects from "../hooks/useGetProjects";
 
 const DashBoardPage = () => {
-  const { data, isLoading, isSuccess } = useGetProjects();
+  const { data, isLoading } = useGetProjects();
   const [projects, setProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [projectsPerPage, setProjectsPerPage] = useState(5);
-
-  console.log(data);
-  console.log(projects);
+  const [projectsPerPage] = useState(5);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data) {
       setProjects(data);
     } else {
-      console.log(projects);
+      return;
     }
-  }, [isSuccess]);
+  }, [data]);
 
   //get current project page number
   const indexOfLastProject = currentPage * projectsPerPage;
