@@ -34,6 +34,7 @@ const SingUpPage = () => {
       history.push("/");
     } catch (Error) {
       setError(Error.message);
+      <Redirect to="/pages/SignUpPage" />;
     }
     setLoading(false);
   };
