@@ -26,7 +26,7 @@ const CreateProjectPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const projectRef = await mutation.mutateAsync(newProject);
+      await mutation.mutateAsync(newProject);
       setTitle("");
       setContent("");
       history.push("/");

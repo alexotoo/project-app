@@ -42,7 +42,7 @@ export function AuthProvider({ children }) {
     if (currentUserIn) {
       const userIn = currentUserIn.user;
       try {
-        const updateProfileDisplay = await userIn.updateProfile({
+        await userIn.updateProfile({
           displayName: currentUserNames,
         });
         //console.log("update done");
