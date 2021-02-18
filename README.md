@@ -1,12 +1,19 @@
-# A React FireBase fullstack App
+This App is a Team Project App, where members can login to create projects, it uses firebase for back
+-end and authentication
 
-**Project started on 24-01-21**
+Data fetching is done with [React Query](https://react-query.tanstack.com/) a very nice react data fetching and global server side data fetching states management library
 
-### Project Description:
+### project inspiration:
 
-This is a Project App, I started this project to learn more about firebase.
-It is a full stack app having firebase as the backend.
+The project was inspired by the NetNinja on youTube with his React-Redux firebase tutorials.
 
-<!-- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). -->
+### what is different?:
 
-**Note: this is a small note!**
+This app is totally different from the original version done by the Netninja with respect to code base and UI. **This project was to find ways to make the same idea in a different way**.
+
+##interested in the code difference ?
+Have a look at the project inspiration [React-Redux-Firebase-App](https://github.com/iamshaunjp/React-Redux-Firebase-App)
+
+### Stack:
+
+1.React Js 2. Firebase/firestore/functions/deploy 3. React Query
