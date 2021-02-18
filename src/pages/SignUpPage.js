@@ -90,7 +90,7 @@ const SingUpPage = () => {
             <Form.Group id="password-confirm">
               <Form.Label> Password Confirmation</Form.Label>
               <Form.Control
-                type="password-confirm"
+                type="password"
                 ref={passwordConfirmRef}
                 placeholder="confirm password"
                 required
