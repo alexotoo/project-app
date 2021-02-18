@@ -24,7 +24,6 @@ const SingInPage = () => {
       history.push("/");
     } catch (error) {
       setError(error.message);
-      <Redirect to="/pages/SignInPage" />;
     }
     setLoading(false);
   };

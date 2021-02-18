@@ -30,9 +30,6 @@ export function AuthProvider({ children }) {
       return userProfileName;
     };
 
-    //get user name to create firestore displayName
-    const currentUserNames = createUserProfileNames(first, last);
-
     //create a new user
     const currentUserIn = await auth.createUserWithEmailAndPassword(
       email,
@@ -40,6 +37,8 @@ export function AuthProvider({ children }) {
     );
     //update the created user's displayName
     if (currentUserIn) {
+      //get user name to create firestore displayName
+      const currentUserNames = createUserProfileNames(first, last);
       const userIn = currentUserIn.user;
       try {
         await userIn.updateProfile({
@@ -49,8 +48,10 @@ export function AuthProvider({ children }) {
         setProfileUpdate(true);
       } catch (error) {
         //console.log(error);
+        return;
       }
     }
+    return currentUserIn;
   };
 
   ////sign in exiting user

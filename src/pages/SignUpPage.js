@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Form, Button, Card, Alert, Container, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Redirect, useHistory } from "react-router-dom";
@@ -16,7 +16,7 @@ const SingUpPage = () => {
 
   const { signUp, currentUser } = useAuthContext();
 
-  const submitFormHandler = (e) => {
+  const submitFormHandler = async (e) => {
     e.preventDefault();
 
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -25,19 +25,24 @@ const SingUpPage = () => {
     try {
       setError("");
       setLoading(true);
-      signUp(
+      await signUp(
         emailRef.current.value,
         passwordRef.current.value,
         firstNameRef.current.value,
         lastNameRef.current.value
       );
       history.push("/");
-    } catch (Error) {
-      setError(Error.message);
-      <Redirect to="/pages/SignUpPage" />;
+    } catch (error) {
+      setError(error.message);
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    return () => {
+      setLoading(false);
+    };
+  }, [loading]);
   if (currentUser) return <Redirect to="/" />;
   return (
     <Container className="d-flex justify-content-center align-items-center flex-column">
