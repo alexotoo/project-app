@@ -2,11 +2,11 @@
 **Project deployed on 18-02-21**
 
 ### project objective:
-Change a legacy codebase to a modern and current version.
- [the legacy code](https://github.com/iamshaunjp/React-Redux-Firebase-App)
- 
+Change a legacy codebase using React classes to a modern and current version using react hooks.
 
- [my version](https://github.com/alexotoo/project-app) 
+[the legacy code](https://github.com/iamshaunjp/React-Redux-Firebase-App)
+ 
+[my version](https://github.com/alexotoo/project-app) 
 
 
 ### project description:
