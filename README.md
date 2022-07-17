@@ -25,4 +25,5 @@ This app is totally different from the original version done by the Netninja wit
 
 ### Stack:
 
-1.React Js 2. Firebase/firestore/functions/ 3. React Query 4. Netlify hosting 5. React-Bootstrap
+- **React Js** 
+- 2. Firebase/firestore/functions/ 3. React Query 4. Netlify hosting 5. React-Bootstrap
