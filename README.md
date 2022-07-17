@@ -5,7 +5,7 @@
 1. Change a legacy codebase using React classes to a modern and current version using react hooks.
 2. Update the application UI
 
-[the legacy code](https://github.com/iamshaunjp/React-Redux-Firebase-App)
+[the legacy code](https://github.com/iamshaunjp/React-Redux-Firebase-App/tree/lesson-39/marioplan)
  
 [my version](https://github.com/alexotoo/project-app) 
 
