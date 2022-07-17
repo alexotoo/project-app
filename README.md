@@ -1,6 +1,13 @@
 **Project started on 24-01-21**
 **Project deployed on 18-02-21**
 
+### project objective:
+Change a legacy codebase to a modern and current version.
+# [the legacy code](https://github.com/iamshaunjp/React-Redux-Firebase-App)
+
+# [my version](https://github.com/alexotoo/project-app) 
+
+
 ### project description:
 
 This App is a Team Project App, where members can login to create projects, it uses firebase for back
@@ -10,14 +17,11 @@ Data fetching is done with [React Query](https://react-query.tanstack.com/) a ve
 
 ### project inspiration:
 
-The project was inspired by the NetNinja on youTube with his React-Redux firebase tutorials.
+The project was inspired by the [NetNinja](https://github.com/iamshaunjp) on youTube with his React-Redux firebase tutorials.
 
 ### what is different?:
 
 This app is totally different from the original version done by the Netninja with respect to code base and UI. **This project was to find ways to make the same idea in a different way**.
-
-##interested in the code difference ?
-Have a look at the project inspiration [React-Redux-Firebase-App](https://github.com/iamshaunjp/React-Redux-Firebase-App)
 
 ### Stack:
 
